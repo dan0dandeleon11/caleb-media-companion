@@ -1,0 +1,337 @@
+/* ============================================================
+   Media Companion — Spoiler-Free Context Injector
+   by Lei
+   ============================================================ */
+
+/* Settings panel in Extensions tab */
+.media-companion-block .inline-drawer-content {
+    padding: 10px;
+}
+
+.media-companion-block label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.media-companion-block .mc-row {
+    margin-bottom: 10px;
+}
+
+.media-companion-block .mc-row-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* ============================================================
+   Main Panel (floating / drawer)
+   ============================================================ */
+
+#mc-panel {
+    display: none;
+    position: fixed;
+    right: 10px;
+    top: 60px;
+    width: min(420px, 92vw);
+    max-height: 85vh;
+    overflow-y: auto;
+    background: var(--SmartThemeBlurTintColor, #1a1a2e);
+    border: 1px solid var(--SmartThemeBorderColor, #444);
+    border-radius: 12px;
+    z-index: 9999;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    font-size: 13px;
+    color: var(--SmartThemeBodyColor, #ccc);
+}
+
+#mc-panel.mc-open {
+    display: block;
+}
+
+/* Header */
+.mc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px 12px 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.mc-header span:first-child {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.mc-header .mc-close {
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 16px;
+    padding: 4px;
+}
+
+.mc-header .mc-close:hover {
+    opacity: 1;
+}
+
+/* Sections */
+.mc-section {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mc-section:last-child {
+    border-bottom: none;
+}
+
+.mc-section label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+/* Dropdowns */
+.mc-section select {
+    width: 100%;
+    padding: 8px;
+    background: var(--SmartThemeBlurTintColor, #222);
+    border: 1px solid var(--SmartThemeBorderColor, #444);
+    color: var(--SmartThemeBodyColor, #fff);
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Text areas */
+.mc-section textarea {
+    width: 100%;
+    padding: 8px;
+    background: var(--SmartThemeBlurTintColor, #222);
+    border: 1px solid var(--SmartThemeBorderColor, #444);
+    color: var(--SmartThemeBodyColor, #fff);
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: inherit;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.mc-section textarea:focus,
+.mc-section select:focus {
+    outline: none;
+    border-color: var(--SmartThemeQuoteColor, #6b8afd);
+}
+
+/* Buttons row */
+.mc-btn-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.mc-btn {
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--SmartThemeBodyColor, #ccc);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.15s ease;
+}
+
+.mc-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.mc-btn-primary {
+    background: rgba(107, 138, 253, 0.2);
+    border-color: rgba(107, 138, 253, 0.4);
+    color: #8ba5ff;
+}
+
+.mc-btn-primary:hover {
+    background: rgba(107, 138, 253, 0.35);
+}
+
+.mc-btn-danger {
+    background: rgba(231, 76, 60, 0.15);
+    border-color: rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+}
+
+.mc-btn-danger:hover {
+    background: rgba(231, 76, 60, 0.3);
+}
+
+/* Bookmark display */
+.mc-bookmark {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-top: 6px;
+}
+
+.mc-bookmark-label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.mc-bookmark-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.mc-bookmark-controls .mc-btn {
+    padding: 4px 10px;
+    font-size: 14px;
+    min-width: 32px;
+    text-align: center;
+}
+
+/* Progress bar */
+.mc-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.mc-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6b8afd, #a78bfa);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Status radio buttons */
+.mc-status-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.mc-status-row label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: 1;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* Library list */
+.mc-library-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.mc-library-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.mc-library-item .mc-lib-title {
+    font-weight: 500;
+}
+
+.mc-library-item .mc-lib-progress {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+/* New media / new episode forms */
+.mc-new-form {
+    display: none;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    margin-top: 6px;
+}
+
+.mc-new-form.mc-visible {
+    display: block;
+}
+
+.mc-new-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    background: var(--SmartThemeBlurTintColor, #222);
+    border: 1px solid var(--SmartThemeBorderColor, #444);
+    color: var(--SmartThemeBodyColor, #fff);
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+/* Type icons in dropdown / library */
+.mc-type-icon {
+    margin-right: 4px;
+}
+
+/* Status indicator */
+.mc-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.mc-status-dot.watching { background: #2ecc71; }
+.mc-status-dot.paused { background: #f39c12; }
+.mc-status-dot.done { background: #95a5a6; }
+
+/* Floating Action Button (for mobile) */
+#mc-fab {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--SmartThemeQuoteColor, #6b8afd);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 9998;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+    align-items: center;
+    justify-content: center;
+}
+
+#mc-fab:hover {
+    transform: scale(1.1);
+}
+
+#mc-fab.mc-fab-visible {
+    display: flex;
+}

@@ -1,0 +1,12 @@
+{
+    "display_name": "Media Companion",
+    "loading_order": 101,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "Lei",
+    "version": "1.0.0",
+    "description": "Spoiler-free media context injector — lets Caleb experience shows, games, and stories WITH you in real time without spoiling future events.",
+    "type": "module"
+}
