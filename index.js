@@ -64,6 +64,7 @@ const DEFAULT_SETTINGS = {
 
 let settings = { ...DEFAULT_SETTINGS };
 let isProcessing = false;
+let fallbackChatData = null; // in-memory fallback when chat_metadata isn't available
 
 // =============================================================================
 // Initialization
@@ -75,7 +76,6 @@ export async function init() {
     loadSettings();
     injectSettingsUI();
     injectPanelUI();
-    bindEvents();
     updateUI();
 
     // Register ST events
@@ -122,17 +122,26 @@ function saveSettings() {
 function getChatData() {
     try {
         const ctx = getContext();
-        if (!ctx.chat_metadata) return getDefaultChatData();
-        if (!ctx.chat_metadata[CHAT_META_KEY]) {
-            ctx.chat_metadata[CHAT_META_KEY] = getDefaultChatData();
+        if (ctx.chat_metadata) {
+            if (!ctx.chat_metadata[CHAT_META_KEY]) {
+                // Initialize from fallback if we have one, otherwise fresh default
+                ctx.chat_metadata[CHAT_META_KEY] = fallbackChatData || getDefaultChatData();
+            }
+            fallbackChatData = ctx.chat_metadata[CHAT_META_KEY];
+            return ctx.chat_metadata[CHAT_META_KEY];
         }
-        return ctx.chat_metadata[CHAT_META_KEY];
     } catch (e) {
-        return getDefaultChatData();
+        // fall through to fallback
     }
+    // No chat_metadata — use in-memory fallback so data persists between calls
+    if (!fallbackChatData) {
+        fallbackChatData = getDefaultChatData();
+    }
+    return fallbackChatData;
 }
 
 function saveChatData(data) {
+    fallbackChatData = data; // always keep in-memory copy
     try {
         const ctx = getContext();
         if (ctx.chat_metadata) {
